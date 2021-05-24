@@ -36,6 +36,14 @@
   name = "github.com/smartystreets/goconvey"
   version = "1.6.3"
 
+[[constraint]]
+  name = "github.com/8710925/reporter/grafana"
+  version = "2.3.1"
+
+[[constraint]]
+  name = "github.com/8710925/reporter/report"
+  version = "2.3.1"
+
 [prune]
   go-tests = true
   unused-packages = true

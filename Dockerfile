@@ -1,17 +1,16 @@
 # build
-FROM golang:1.14.7-alpine3.12 AS build
+FROM golang:alpine3.13 AS build
 WORKDIR /go/src/${owner:-github.com/IzakMarais}/reporter
 RUN apk update && apk add make git
 ADD . .
 RUN make build
 
 # create image
-FROM alpine:3.12
+FROM alpine:3.13
 COPY util/texlive.profile /
 
-RUN PACKAGES="wget libswitch-perl" \
-        && apk update \
-        && apk add $PACKAGES \
+RUN PACKAGES="wget " \
+        && apk --no-progress --purge --no-cache add --upgrade $PACKAGES \
         && apk add ca-certificates \
         && wget -qO- \
           "https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
@@ -30,4 +29,5 @@ RUN PACKAGES="wget libswitch-perl" \
 
 
 COPY --from=build /go/bin/grafana-reporter /usr/local/bin
-ENTRYPOINT [ "/usr/local/bin/grafana-reporter" ]
+ENTRYPOINT [ "/usr/local/bin/grafana-reporter","-ip","jmeter-grafana:3000" ]
+
