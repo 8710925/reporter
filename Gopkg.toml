@@ -39,10 +39,12 @@
 [[constraint]]
   name = "github.com/8710925/reporter/grafana"
   version = "2.3.1"
+  source = "github.com/8710925/reporter/grafana"
 
 [[constraint]]
   name = "github.com/8710925/reporter/report"
   version = "2.3.1"
+  source = "github.com/8710925/reporter/report"
 
 [prune]
   go-tests = true
