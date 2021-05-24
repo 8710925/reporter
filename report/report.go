@@ -222,7 +222,8 @@ func (rep *report) generateTeXFile(dash grafana.Dashboard) error {
 }
 
 func (rep *report) runLaTeX() (pdf *os.File, err error) {
-	cmdPre := exec.Command("pdflatex", "-halt-on-error", "-draftmode", reportTexFile)
+	// cmdPre := exec.Command("pdflatex", "-halt-on-error", "-draftmode", reportTexFile)
+	cmdPre := exec.Command("xelatex", "-halt-on-error", reportTexFile)
 	cmdPre.Dir = rep.tmpDir
 	outBytesPre, errPre := cmdPre.CombinedOutput()
 	log.Println("Calling LaTeX - preprocessing")
@@ -230,7 +231,8 @@ func (rep *report) runLaTeX() (pdf *os.File, err error) {
 		err = fmt.Errorf("error calling LaTeX preprocessing: %q. Latex preprocessing failed with output: %s ", errPre, string(outBytesPre))
 		return
 	}
-	cmd := exec.Command("pdflatex", "-halt-on-error", reportTexFile)
+	// cmd := exec.Command("pdflatex", "-halt-on-error", reportTexFile)
+	cmd := exec.Command("xelatex", "-halt-on-error", reportTexFile)
 	cmd.Dir = rep.tmpDir
 	outBytes, err := cmd.CombinedOutput()
 	log.Println("Calling LaTeX and building PDF")

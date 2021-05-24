@@ -79,6 +79,7 @@ func addFilenameHeader(w http.ResponseWriter, title string) {
 	filename = strings.TrimLeft(filename, "\"")
 	filename = strings.TrimRight(filename, "\"")
 	filename += ".pdf"
+	filename = conv_str(filename)
 	log.Println("Extracted filename from dashboard title: ", filename)
 	header := fmt.Sprintf("inline; filename=\"%s\"", filename)
 	w.Header().Add("Content-Disposition", header)
@@ -135,4 +136,34 @@ func texTemplate(r *http.Request) string {
 	}
 
 	return string(customTemplate)
+}
+
+func conv_str(filename string) string {
+	buf := bytes.NewBuffer(nil)
+
+	i, j := 0, len(filename)
+	for i < j {
+		x := i + 6
+		if x > j {
+			buf.WriteString(filename[i:])
+			break
+		}
+		if filename[i] == '\\' && filename[i+1] == 'u' {
+			hex := filename[i+2 : x]
+			//fmt.Println(hex)
+			r, err := strconv.ParseUint(hex, 16, 64)
+			if err == nil {
+				//fmt.Println(string(r))
+				buf.WriteRune(rune(r))
+			} else {
+				buf.WriteString(filename[i:x])
+			}
+			i = x
+		} else {
+			buf.WriteByte(filename[i])
+			i++
+		}
+	}
+	//fmt.Println(buf.String())
+	return buf.String()
 }
