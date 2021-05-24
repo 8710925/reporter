@@ -140,8 +140,7 @@ func texTemplate(r *http.Request) string {
 }
 
 func conv_str(filename string) string {
-	buf := bytes.NewBuffer(nil)
-
+	var buf = bytes.NewBuffer(nil)
 	i, j := 0, len(filename)
 	for i < j {
 		x := i + 6
