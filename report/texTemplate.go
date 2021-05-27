@@ -21,7 +21,7 @@ const defaultTemplate = `
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage[margin=1in]{geometry}
-\usepackage{xeCJK}
+\usepackage[UTF8]{ctex}
 \setCJKmonofont{KaiTi}
 
 \graphicspath{ {images/} }
