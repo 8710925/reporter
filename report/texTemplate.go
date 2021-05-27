@@ -18,7 +18,7 @@ package report
 
 const defaultTemplate = `
 %use square brackets as golang text templating delimiters
-\documentclass{article}
+\documentclass[UTF8]{article}
 \documentclass[UTF8]{ctexart}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -28,7 +28,7 @@ const defaultTemplate = `
 
 \graphicspath{ {images/} }
 \begin{document}
-\begin{CJK}{UTF8}{KaiTi}
+\begin{UTF8}{KaiTi}
 \title{[[.Title]] [[if .VariableValues]] \\ \large [[.VariableValues]] [[end]] [[if .Description]] \\ \small [[.Description]] [[end]]}
 \date{[[.FromFormatted]]\\to\\[[.ToFormatted]]}
 \maketitle
@@ -44,6 +44,5 @@ const defaultTemplate = `
 [[end]][[end]]
 
 \end{center}
-\end{CJK}
 \end{document}
 `
