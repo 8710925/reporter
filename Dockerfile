@@ -33,18 +33,15 @@ RUN apk --no-progress --purge --no-cache add --upgrade  wget \
     && chmod -R g+w /opt/TinyTeX \
     && chmod -R g+wx /opt/TinyTeX/bin \
     && tlmgr update --self --repository http://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet \
-    && tlmgr install epstopdf-pkg ctex  everyshi everysel  \
+    && tlmgr install epstopdf-pkg ctex  everyshi everysel euenc \
     # Cleanup
+    && fmtutil-sys  --all \
+    && texhash \
+    && mktexlsr \
     && apk del --purge -qq \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /go/src/${owner:-github.com/8710925}/reporter/util/xecjk/* /opt/TinyTeX/texmf-dist/tex/xelatex/xecjk/
-COPY --from=build /go/src/${owner:-github.com/8710925}/reporter/util/euenc/* /opt/TinyTeX/texmf-dist/tex/latex/euenc/
-
-RUN fmtutil-sys  --all \
-    && texhash \
-    && mktexlsr \
-
-
 COPY --from=build /go/bin/grafana-reporter /usr/local/bin
+
+
 ENTRYPOINT [ "/usr/local/bin/grafana-reporter","-ip","jmeter-grafana:3000" ]
