@@ -18,11 +18,10 @@ package report
 
 const defaultTemplate = `
 %use square brackets as golang text templating delimiters
-\documentclass[UTF8]{article}
-\usepackage[T1]{fontenc}
+\documentclass{article}
 \usepackage{graphicx}
 \usepackage[margin=1in]{geometry}
-\usepackage[UTF8]{ctex}
+\usepackage{xeCJK}
 \setCJKmonofont{KaiTi}
 
 \graphicspath{ {images/} }
