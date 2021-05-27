@@ -18,7 +18,6 @@ package report
 
 const defaultTemplate = `
 %use square brackets as golang text templating delimiters
-\documentclass[UTF8]{article}
 \documentclass[UTF8]{ctexart}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
