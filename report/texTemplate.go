@@ -27,7 +27,6 @@ const defaultTemplate = `
 
 \graphicspath{ {images/} }
 \begin{document}
-\begin{UTF8}{KaiTi}
 \title{[[.Title]] [[if .VariableValues]] \\ \large [[.VariableValues]] [[end]] [[if .Description]] \\ \small [[.Description]] [[end]]}
 \date{[[.FromFormatted]]\\to\\[[.ToFormatted]]}
 \maketitle
