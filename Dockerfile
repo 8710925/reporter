@@ -2,17 +2,15 @@
 # 多阶构建
 FROM golang:1.14.7-alpine3.12 AS build
 MAINTAINER westzhao
-
-
-# # 下载运维/编译工具
+# 下载运维/编译工具
 WORKDIR /go/src/${owner:-github.com/8710925}/reporter
-ADD . .
-RUN go install -v github.com/8710925/reporter/cmd/grafana-reporter
+# ADD . .
+# RUN go install -v github.com/8710925/reporter/cmd/grafana-reporter
 
-# RUN apk --no-progress --purge --no-cache add --upgrade git && \
-# # 编译grafana-reporter
-#     git clone https://${owner:-github.com/8710925}/reporter . \
-#     && go install -v github.com/8710925/reporter/cmd/grafana-reporter
+RUN apk --no-progress --purge --no-cache add --upgrade git && \
+# 编译grafana-reporter
+    git clone https://${owner:-github.com/8710925}/reporter . \
+    && go install -v github.com/8710925/reporter/cmd/grafana-reporter
 
 
 # create grafana reporter image
@@ -34,8 +32,8 @@ RUN apk --no-progress --purge --no-cache add --upgrade  wget \
     && chown -R root:adm /opt/TinyTeX \
     && chmod -R g+w /opt/TinyTeX \
     && chmod -R g+wx /opt/TinyTeX/bin \
-    && tlmgr install epstopdf-pkg \
-    && tlmgr install picins \
+    && tlmgr update --self --repository http://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet \
+    && tlmgr install epstopdf-pkg ctex  everyshi everysel  \
     # && fmtutil-sys  --all \
     # && texhash \
     # && mktexlsr \
