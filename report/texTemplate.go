@@ -21,11 +21,12 @@ const defaultTemplate = `
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage[margin=1in]{geometry}
-\usepackage[UTF8]{ctex}
+\usepackage[CJKutf8]{ctex}
 \setCJKmonofont{KaiTi}
 
 \graphicspath{ {images/} }
 \begin{document}
+\begin{CJK}{UTF8}{KaiTi}
 \title{[[.Title]] [[if .VariableValues]] \\ \large [[.VariableValues]] [[end]] [[if .Description]] \\ \small [[.Description]] [[end]]}
 \date{[[.FromFormatted]]\\to\\[[.ToFormatted]]}
 \maketitle
@@ -41,5 +42,6 @@ const defaultTemplate = `
 [[end]][[end]]
 
 \end{center}
+\end{CJK}
 \end{document}
 `
